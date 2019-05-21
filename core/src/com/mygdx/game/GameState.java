@@ -9,7 +9,7 @@ public class GameState {
     //to create board
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
 
-    private int yOffset = 400;//How high the board is off the bottom
+    private int yOffset = 40;//How high the board is off the bottom
 
 
     //update game logic
@@ -23,8 +23,12 @@ public class GameState {
 
         shapeRenderer.setProjectionMatrix(camera.combined);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(0,1,1,1); // color for board
-        shapeRenderer.rect(300, 500, 100, 100); //size of rect
+
+        shapeRenderer.setColor(1,1,1,1);
+        shapeRenderer.rect(0, yOffset, width, width);
+
+        shapeRenderer.setColor(0,0,0,1);
+        shapeRenderer.rect(0+5, yOffset+5, width-5*2, width-5*2);
         //rectangle drawing happens here
         shapeRenderer.end();
     }
