@@ -39,11 +39,11 @@ public class GameState {
         shapeRenderer.setColor(0,0,0,1);
         shapeRenderer.rect(0+5, yOffset+5, width-5*2, width-5*2);
 
-        shapeRenderer.setColor(1,1,1,1);
+        shapeRenderer.setColor(1,1,1,1);//color for the snake
 
         float scaleSnake = width/boardSize;
         for (Bodypart bp : mBody) {
-            shapeRenderer.rect(bp.getX()*scaleSnake, bp.getY()*scaleSnake + yOffset, scaleSnake, scaleSnake);
+            shapeRenderer.rect(bp.getX()*scaleSnake, bp.getY()*scaleSnake + yOffset, scaleSnake, scaleSnake);//draw a snake
         }
 
 
