@@ -14,6 +14,8 @@ public class GameState {
 
     private Queue<Bodypart> mBody = new Queue<Bodypart>(); //body for snake
 
+    private float mTimer = 0;//for timer
+
     public GameState() {
         mBody.addLast(new Bodypart(15,15,boardSize)); //head
         mBody.addLast(new Bodypart(15,14,boardSize));
@@ -22,7 +24,16 @@ public class GameState {
 
     //update game logic
     public void update(float delta){
+        mTimer = mTimer + delta;
+        if (mTimer > 0.03f) {  //to control how fast the snack move
+            mTimer = 0;
+            advance();
+        }
+    }
 
+    private void advance() {
+        mBody.addFirst(new Bodypart(mBody.first().getX(), mBody.first().getY()+1, boardSize));
+        mBody.removeLast();
     }
 
 
