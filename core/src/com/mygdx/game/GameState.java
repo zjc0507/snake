@@ -16,6 +16,8 @@ public class GameState {
 
     private float mTimer = 0;//for timer
 
+    private Controls controls = new Controls();
+
     public GameState() {
         mBody.addLast(new Bodypart(15,15,boardSize)); //head
         mBody.addLast(new Bodypart(15,14,boardSize));
@@ -25,14 +27,34 @@ public class GameState {
     //update game logic
     public void update(float delta){
         mTimer = mTimer + delta;
-        if (mTimer > 0.03f) {  //to control how fast the snack move
+        if (mTimer > 0.13f) {  //to control how fast the snack move
             mTimer = 0;
             advance();
+            controls.update(); //update the controls every tick
         }
     }
 
     private void advance() {
-        mBody.addFirst(new Bodypart(mBody.first().getX(), mBody.first().getY()+1, boardSize));
+        //mBody.addFirst(new Bodypart(mBody.first().getX(), mBody.first().getY()+1, boardSize));
+        int headX = mBody.first().getX();
+        int headY = mBody.first().getY();
+        switch(controls.getDirection()) {
+            case 0: //up
+                mBody.addFirst(new Bodypart(headX, headY+1, boardSize));
+                break;
+            case 1: //right
+                mBody.addFirst(new Bodypart(headX+1, headY, boardSize));
+                break;
+            case 2: //down
+                mBody.addFirst(new Bodypart(headX, headY-1, boardSize));
+                break;
+            case 3: //left
+                mBody.addFirst(new Bodypart(headX-1, headY, boardSize));
+                break;
+            default://should never happen
+                mBody.addFirst(new Bodypart(headX, headY+1, boardSize));
+                break;
+        }
         mBody.removeLast();
     }
 
