@@ -18,6 +18,11 @@ public class GameState {
 
     private Controls controls = new Controls();
 
+
+    private Food mFood = new Food(boardSize);
+
+    private int snakeLength = 3;
+
     public GameState() {
         mBody.addLast(new Bodypart(15,15,boardSize)); //head
         mBody.addLast(new Bodypart(15,14,boardSize));
@@ -55,7 +60,16 @@ public class GameState {
                 mBody.addFirst(new Bodypart(headX, headY+1, boardSize));
                 break;
         }
-        mBody.removeLast();
+
+        if (mBody.first().getX() == mFood.getX() && mBody.first().getY() == mFood.getY()) {//check if get the food
+            snakeLength++;
+            mFood.randomisePos(boardSize);
+        }
+
+        if (mBody.size - 1 == snakeLength) {
+            mBody.removeLast();
+        }
+
     }
 
 
@@ -74,10 +88,15 @@ public class GameState {
 
         shapeRenderer.setColor(1,1,1,1);//color for the snake
 
+
         float scaleSnake = width/boardSize;
+
+        shapeRenderer.rect(mFood.getX() * scaleSnake, mFood.getY()*scaleSnake + yOffset, scaleSnake, scaleSnake);//draw a food
+
         for (Bodypart bp : mBody) {
             shapeRenderer.rect(bp.getX()*scaleSnake, bp.getY()*scaleSnake + yOffset, scaleSnake, scaleSnake);//draw a snake
         }
+
 
 
         shapeRenderer.end();
