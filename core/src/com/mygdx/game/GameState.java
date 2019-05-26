@@ -66,7 +66,14 @@ public class GameState {
             mFood.randomisePos(boardSize);
         }
 
-        if (mBody.size - 1 == snakeLength) {
+        for (int i = 1; i<mBody.size; i++) {     //Death
+            if (mBody.get(i).getX() == mBody.first().getX()
+                    && mBody.get(i).getY() == mBody.first().getY()) {
+                snakeLength = 3;
+            }
+        }
+
+        while (mBody.size - 1 >= snakeLength) {   //Death  >=
             mBody.removeLast();
         }
 
