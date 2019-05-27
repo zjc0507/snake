@@ -10,8 +10,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public class GameScreen implements Screen {
 
     private Main game;
-    private int width = 3500;//600 GameScreen
-    private int height = 3300;//1000
+    private int width = 600;//600 GameScreen
+    private int height = 1000;//1000
     private OrthographicCamera camera = new OrthographicCamera(width, height);
     private Viewport viewport;
     private GameState gameState = new GameState();
