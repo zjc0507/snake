@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Queue;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class GameState {
 
@@ -30,12 +31,12 @@ public class GameState {
     }
 
     //update game logic
-    public void update(float delta){
-        mTimer = mTimer + delta;
-        if (mTimer > 0.13f) {  //to control how fast the snack move
+    public void update(float delta, Viewport viewport) { //update game logic
+        mTimer += delta;
+        controls.update(viewport);
+        if (mTimer > 0.13f) {
             mTimer = 0;
             advance();
-            controls.update(); //update the controls every tick
         }
     }
 
@@ -94,6 +95,13 @@ public class GameState {
         shapeRenderer.rect(0+5, yOffset+5, width-5*2, width-5*2);
 
         shapeRenderer.setColor(1,1,1,1);//color for the snake
+
+
+        //buttons
+        shapeRenderer.rect(235, 265, 130, 135);
+        shapeRenderer.rect(235, 0, 130, 135);
+        shapeRenderer.rect(105,135,130,130);
+        shapeRenderer.rect(365,135,130,130);
 
 
         float scaleSnake = width/boardSize;

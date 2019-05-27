@@ -10,8 +10,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public class GameScreen implements Screen {
 
     private Main game;
-    private int width = 2500;//600 GameScreen
-    private int height = 3000;//1000
+    private int width = 3500;//600 GameScreen
+    private int height = 3300;//1000
     private OrthographicCamera camera = new OrthographicCamera(width, height);
     private Viewport viewport;
     private GameState gameState = new GameState();
@@ -34,7 +34,7 @@ public class GameScreen implements Screen {
         camera.update();
         viewport.apply();
         // call gameState's update method every tick and give it delta
-        gameState.update(delta);
+        gameState.update(delta, viewport);
         //RGB values
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
