@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Queue;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -11,7 +12,7 @@ public class GameState {
     //to create board
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
 
-    private int yOffset = 40;//How high the board is off the bottom
+    private int yOffset = 400;//How high the board is off the bottom
 
     private Queue<Bodypart> mBody = new Queue<Bodypart>(); //body for snake
 
@@ -24,6 +25,8 @@ public class GameState {
 
     private int snakeLength = 3;
 
+    private float colourCounter = 0;
+
     public GameState() {
         mBody.addLast(new Bodypart(15,15,boardSize)); //head
         mBody.addLast(new Bodypart(15,14,boardSize));
@@ -33,6 +36,7 @@ public class GameState {
     //update game logic
     public void update(float delta, Viewport viewport) { //update game logic
         mTimer += delta;
+        colourCounter += delta;
         controls.update(viewport);
         if (mTimer > 0.13f) {
             mTimer = 0;
@@ -90,12 +94,16 @@ public class GameState {
         //rectangle drawing happens here
         shapeRenderer.setColor(1,1,1,1);
         shapeRenderer.rect(0, yOffset, width, width);
+        //shapeRenderer.rect(yOffset, 0, width, width);
 
         shapeRenderer.setColor(0,0,0,1);
         shapeRenderer.rect(0+5, yOffset+5, width-5*2, width-5*2);
+        //shapeRenderer.rect(yOffset+5,0+5, width-5*2, width-5*2);
 
         shapeRenderer.setColor(1,1,1,1);//color for the snake
 
+        //shapeRenderer.setColor(MathUtils.sin(colourCounter),-MathUtils.sin(colourCounter),1,1); //colour for buttons
+        shapeRenderer.setColor(40,47,1,1);
 
         //buttons
         shapeRenderer.rect(235, 265, 130, 135);
@@ -107,9 +115,11 @@ public class GameState {
         float scaleSnake = width/boardSize;
 
         shapeRenderer.rect(mFood.getX() * scaleSnake, mFood.getY()*scaleSnake + yOffset, scaleSnake, scaleSnake);//draw a food
+        //shapeRenderer.rect(mFood.getY()*scaleSnake + yOffset,mFood.getX() * scaleSnake, scaleSnake, scaleSnake);
 
         for (Bodypart bp : mBody) {
             shapeRenderer.rect(bp.getX()*scaleSnake, bp.getY()*scaleSnake + yOffset, scaleSnake, scaleSnake);//draw a snake
+            //shapeRenderer.rect(bp.getY()*scaleSnake + yOffset,bp.getX()*scaleSnake,  scaleSnake, scaleSnake);
         }
 
 
